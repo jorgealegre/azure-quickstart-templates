@@ -190,7 +190,7 @@
         "North Europe":"[parameters('location')]"
     },
     "location":"[variables('locationMap')[parameters('location')]]",
-    "storageAccountPrefix": "pivhdssearch",
+    "storageAccountPrefix": "pivhdssrh",
     "storageAccountNameShared": "[concat(variables('storageAccountPrefix'), 's', uniqueString(resourceGroup().id, deployment().name))]",
     "masterNodesIpPrefix": "10.0.0.1",
     "networkSettings": {
