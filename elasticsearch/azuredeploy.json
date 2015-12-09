@@ -82,12 +82,7 @@
         1,
         2,
         3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
+        4
       ],
       "metadata": {
         "description": "Number of Elasticsearch client nodes to provision (Setting this to zero puts the data nodes on the load balancer)"
@@ -131,7 +126,7 @@
     },
     "vmDataNodeCount": {
       "type": "int",
-      "defaultValue": 3,
+      "defaultValue": 5,
       "metadata": {
         "description": "Number of Elasticsearch data nodes"
       }
@@ -145,11 +140,12 @@
     },
     "esVersion": {
       "type": "string",
-      "defaultValue": "2.0.1",
+      "defaultValue": "1.5.2",
       "allowedValues": [
         "2.1.0",
         "2.0.1",
-        "1.7.3"
+        "1.7.3",
+        "1.5.2"
       ],
       "metadata": {
         "description": "Elasticsearch version to install"
@@ -179,7 +175,7 @@
     }
   },
   "variables": {
-    "templateBaseUrl": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/elasticsearch/",
+    "templateBaseUrl": "https://raw.githubusercontent.com/jorgealegre/azure-quickstart-templates/master/elasticsearch/",
     "locationMap": {
         "ResourceGroup":"[resourceGroup().location]",
         "West US":"[parameters('location')]",
@@ -194,7 +190,7 @@
         "North Europe":"[parameters('location')]"
     },
     "location":"[variables('locationMap')[parameters('location')]]",
-    "storageAccountPrefix": "elastic",
+    "storageAccountPrefix": "pivhdssearch",
     "storageAccountNameShared": "[concat(variables('storageAccountPrefix'), 's', uniqueString(resourceGroup().id, deployment().name))]",
     "masterNodesIpPrefix": "10.0.0.1",
     "networkSettings": {
@@ -202,12 +198,12 @@
       "addressPrefix": "10.0.0.0/16",
       "subnet": {
         "master": {
-          "name": "master",
+          "name": "searchmaster",
           "prefix": "10.0.0.0/24",
           "vnet": "[parameters('virtualNetworkName')]"
         },
         "data": {
-          "name": "data",
+          "name": "searchdata",
           "prefix": "10.0.1.0/24",
           "vnet": "[parameters('virtualNetworkName')]"
         }

@@ -3,16 +3,13 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "adminUsername": {
-      "value": "changeme"
+      "value": "phme"
     },
     "adminPassword": {
       "value": "changeme"
     },
-    "vmDataNodeCount": {
-      "value": 3
-    },
     "virtualNetworkName": {
-      "value": "esvnet"
+      "value": "pickitvn"
     },
     "esClusterName": {
       "value": "elasticsearch"
@@ -23,14 +20,26 @@
     "vmSizeDataNodes": {
       "value": "Standard_D1"
     },
+    "vmDataNodeCount": {
+      "value": 2
+    },
+    "vmSizeMasterNodes": {
+      "value": "Standard_D1"
+    },
+    "vmMasterNodeCount": {
+      "value": 2
+    },
+    "vmSizeClientNodes": {
+      "value": "Standard_D1"
+    },
     "vmClientNodeCount": {
-      "value": 0
+      "value": 1
     },
     "marvel": {
       "value": "no"
     },
     "kibana": {
-      "value": "yes"
+      "value": "no"
     },
     "OS": {
       "value": "ubuntu"

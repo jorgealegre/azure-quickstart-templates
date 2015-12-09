@@ -84,33 +84,6 @@
     },
     {
       "apiVersion": "2015-06-15",
-      "type": "Microsoft.Network/virtualNetworks",
-      "name": "[parameters('networkSettings').virtualNetworkName]",
-      "location": "[parameters('location')]",
-      "properties": {
-        "addressSpace": {
-          "addressPrefixes": [
-            "[parameters('networkSettings').addressPrefix]"
-          ]
-        },
-        "subnets": [
-          {
-            "name": "[parameters('networkSettings').subnet.master.name]",
-            "properties": {
-              "addressPrefix": "[parameters('networkSettings').subnet.master.prefix]"
-            }
-          },
-          {
-            "name": "[parameters('networkSettings').subnet.data.name]",
-            "properties": {
-              "addressPrefix": "[parameters('networkSettings').subnet.data.prefix]"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "apiVersion": "2015-06-15",
       "name": "loadBalancer",
       "type": "Microsoft.Network/loadBalancers",
       "location": "[parameters('location')]",
