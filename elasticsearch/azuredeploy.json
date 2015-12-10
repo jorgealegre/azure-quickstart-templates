@@ -172,6 +172,12 @@
       "metadata": {
         "description": "Provision a machine with Kibana on it"
       }
+    },
+    "elasticBlobStorageKey": {
+      "type":"string",
+      "metadata": {
+        "description": "Blob Storage key to make backups in ElasticSearch"
+      }
     }
   },
   "variables": {
@@ -212,7 +218,8 @@
     "esSettings": {
       "clusterName": "[parameters('esClusterName')]",
       "version": "[parameters('esVersion')]",
-      "discoveryHosts": "[concat(variables('masterNodesIpPrefix'), '-3')]"
+      "discoveryHosts": "[concat(variables('masterNodesIpPrefix'), '-3')]",
+      "blobStorageKey": "[parameters('elasticBlobStorageKey')]"
     },
     "sharedTemplateUrl": "[concat(variables('templateBaseUrl'), 'shared-resources.json')]",
     "masterTemplateUrl": "[concat(variables('templateBaseUrl'), 'master-nodes-resources.json')]",
@@ -285,7 +292,7 @@
             "typeHandlerVersion": "1.2",
             "settings": {
               "fileUris": "[variables('ubuntuScripts')]",
-              "commandToExecute": "[concat('bash elasticsearch-ubuntu-install.sh -xn ', variables('esSettings').clusterName, ' -v ', variables('esSettings').version, ' -d ', variables('esSettings').discoveryHosts, variables('marvelParamValue'))]"
+              "commandToExecute": "[concat('bash elasticsearch-ubuntu-install.sh -xn ', variables('esSettings').clusterName, ' -v ', variables('esSettings').version, ' -d ', variables('esSettings').discoveryHosts, ' -k ', variables('esSettings').blobStorageKey), variables('marvelParamValue')]"
             }
           },
         "client": {
@@ -294,7 +301,7 @@
             "typeHandlerVersion": "1.2",
             "settings": {
               "fileUris": "[variables('ubuntuScripts')]",
-              "commandToExecute": "[concat('bash elasticsearch-ubuntu-install.sh -yn ', variables('esSettings').clusterName, ' -v ', variables('esSettings').version, ' -d ', variables('esSettings').discoveryHosts, variables('marvelParamValue'))]"
+              "commandToExecute": "[concat('bash elasticsearch-ubuntu-install.sh -yn ', variables('esSettings').clusterName, ' -v ', variables('esSettings').version, ' -d ', variables('esSettings').discoveryHosts, ' -k ', variables('esSettings').blobStorageKey), variables('marvelParamValue'))]"
             }
           },
         "data": {
@@ -303,7 +310,7 @@
           "typeHandlerVersion": "1.2",
           "settings": {
             "fileUris": "[variables('ubuntuScripts')]",
-            "commandToExecute": "[concat('bash elasticsearch-ubuntu-install.sh -zn ', variables('esSettings').clusterName, ' -v ', variables('esSettings').version, ' -d ', variables('esSettings').discoveryHosts, variables('marvelParamValue'))]"
+            "commandToExecute": "[concat('bash elasticsearch-ubuntu-install.sh -zn ', variables('esSettings').clusterName, ' -v ', variables('esSettings').version, ' -d ', variables('esSettings').discoveryHosts, ' -k ', variables('esSettings').blobStorageKey), variables('marvelParamValue'))]"
           }
         },
         "kibana": {

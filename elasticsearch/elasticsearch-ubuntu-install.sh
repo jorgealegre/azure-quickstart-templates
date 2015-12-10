@@ -35,6 +35,7 @@ help()
     echo "-x configure as a dedicated master node"
     echo "-y configure as client only node (no master, no data)"
     echo "-z configure as data node (no master)"
+    echo "-k BlobStorage key"
     echo "-h view this help content"
 }
 
@@ -76,6 +77,7 @@ INSTALL_MARVEL=0
 CLIENT_ONLY_NODE=0
 DATA_NODE=0
 MASTER_ONLY_NODE=0
+BLOB_STORAGE_KEY=""
 
 #Loop through options passed
 while getopts :n:d:v:mxyzsh optname; do
@@ -107,6 +109,9 @@ while getopts :n:d:v:mxyzsh optname; do
       ;;
     d) #place data on local resource disk
       NON_DURABLE=1
+      ;;
+    k)
+      BLOB_STORAGE_KEY=${OPTARG}
       ;;
     h) #show help
       help
@@ -270,9 +275,25 @@ fi
 
 echo "discovery.zen.minimum_master_nodes: 2" >> /etc/elasticsearch/elasticsearch.yml
 
-if [[ "${ES_VERSION}" == \2* ]]; then
-    echo "network.host: _non_loopback_" >> /etc/elasticsearch/elasticsearch.yml
-fi
+#if [[ "${ES_VERSION}" == \2* ]]; then
+#    echo "network.host: _non_loopback_" >> /etc/elasticsearch/elasticsearch.yml
+#fi
+
+# network.host
+echo "network.host: 0.0.0.0" >> /etc/elasticsearch/elasticsearch.yml
+
+# scripts
+echo "script.disable_dynamic: false" >> /etc/elasticsearch/elasticsearch.yml
+echo "script.inline: on" >> /etc/elasticsearch/elasticsearch.yml
+echo "script.indexed: on" >> /etc/elasticsearch/elasticsearch.yml
+echo "script.engine.groovy.inline.search: on" >> /etc/elasticsearch/elasticsearch.yml
+
+# azure cloud storage for backups
+echo "cloud:" >> /etc/elasticsearch/elasticsearch.yml
+echo "    azure:" >> /etc/elasticsearch/elasticsearch.yml
+echo "        storage:" >> /etc/elasticsearch/elasticsearch.yml
+echo "            account: phmecloud" >> /etc/elasticsearch/elasticsearch.yml
+echo "            key: $BLOB_STORAGE_KEY" >> /etc/elasticsearch/elasticsearch.yml
 
 # DNS Retry
 echo "options timeout:1 attempts:5" >> /etc/resolvconf/resolv.conf.d/head
