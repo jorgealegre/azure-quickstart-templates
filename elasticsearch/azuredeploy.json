@@ -494,9 +494,6 @@
   "resources": [
     {
       "name": "master-nodes",
-      "tags": {
-        "resource_type": "elasticsearch"
-      },
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
@@ -567,9 +564,6 @@
     },
     {
       "name": "client-nodes",
-      "tags": {
-        "resource_type": "elasticsearch"
-      },
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
@@ -615,9 +609,6 @@
     },
     {
       "name": "data-nodes",
-      "tags": {
-        "resource_type": "elasticsearch"
-      },
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
@@ -665,9 +656,6 @@
     },
     {
       "name": "jumpbox",
-      "tags": {
-        "resource_type": "elasticsearch"
-      },
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
@@ -703,9 +691,6 @@
     },
     {
       "name": "kibana",
-      "tags": {
-        "resource_type": "elasticsearch"
-      },
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [

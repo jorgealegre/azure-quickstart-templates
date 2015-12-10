@@ -130,6 +130,9 @@
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[concat(parameters('namespace'), 'vm', copyindex())]",
+      "tags": {
+        "resource_type": "elasticsearch"
+      },
       "location": "[parameters('location')]",
       "copy": {
         "name": "[concat(parameters('namespace'), 'virtualMachineLoop')]",

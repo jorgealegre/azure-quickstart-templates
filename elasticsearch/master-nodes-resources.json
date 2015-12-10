@@ -98,6 +98,9 @@
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[concat('masterVm', copyindex())]",
+      "tags": {
+        "resource_type": "elasticsearch"
+      },
       "location": "[parameters('location')]",
       "copy": {
         "name": "masterVmLoop",
